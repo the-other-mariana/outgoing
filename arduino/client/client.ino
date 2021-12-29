@@ -1,4 +1,5 @@
 // code that prints temperature on serial monitor
+#include <WiFi.h>
 #include "DHT.h"
 #define DHTPIN 2
 #define DHTTYPE DHT11

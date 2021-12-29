@@ -51,3 +51,60 @@ void loop() {
 ```
 
 *If everything is ok, a led will start blinking in the ESP32 module.*
+
+## Send Sensor Data To Serial Monitor
+
+1. We will use a DHT11 sensor to get the temperature and display it on the serial monitor first.
+
+2. Wire the sensor to the ESP32 module using female-female dupont cables. The DHT11 sensor looks like this:
+
+![img](res/5.jpg)
+
+*Note: in the sensor, the "S" marks the spot where signal (3V3) should go, and it can change depending on the DHT11 sensor you have.*
+
+The ESP32 module looks like below.
+
+![img](res/6.jpg)
+
+3. To make the code more readable, we handle the DHT11 data with a built-in Arduino Library called "DHT sensor library", which you need to include in your project. To do that, go to `Sketch > Include Library > Manage Libraries`, which will open a Library Manager.
+
+![img](res/8.png)
+
+4. In the Library Manager's search field, type "dht" and look for "DHT sensor library". Click on Install.
+
+![img](res/7.png)
+
+5. Now, load the following code to the ESP32:
+
+```c++
+// code that prints temperature on serial monitor
+#include "DHT.h"
+#define DHTPIN 2
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("DHT11 output:");
+  dht.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  float temp = dht.readTemperature();
+  if (isnan(temp)) {
+    Serial.println("No data");
+  }else{
+    Serial.print("Temperature: ");
+    Serial.print(temp);
+    Serial.println("°C");
+    delay(1000);
+  }
+  
+}
+```
+
+And you will see the output in the Serial Monitor (9600):
+
+![img](res/4.png)

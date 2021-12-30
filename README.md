@@ -126,7 +126,7 @@ $ go run server.go
 
 It will run the server on http://localhost:8080/
 
-- To test sensor data is received (23 degrees), open terminal #2 where server.go is, and type:
+- To test sensor data is received (23 degrees), open terminal #2 on any folder, and type:
 
 ```
 $ curl -X GET http://localhost:8080/dht?temp=23

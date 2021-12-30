@@ -141,3 +141,17 @@ And the client side (terminal #2) would look like below:
 ![img](res/client-sidev1.png)
 
 *Note: as seen in terminal #1, the server is running on http://localhost:8080/ or http://127.0.0.1:8080/*
+
+## Build Server Portable Executable
+
+- Open a terminal where server.go is, and type:
+
+```
+go build
+```
+
+And you will have an executable, which you can run by:
+
+```
+$ ./server
+```

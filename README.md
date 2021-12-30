@@ -117,7 +117,7 @@ And you will see the output in the Serial Monitor (9600):
 $ go get github.com/gin-gonic/gin
 ```
 
-- To start the server:
+- To start the server, open terminal #1 and type:
 
 ```
 $ export GO111MODULE=off
@@ -126,8 +126,18 @@ $ go run server.go
 
 It will run the server on http://localhost:8080/
 
-- Test sensor data is received (23 degrees):
+- To test sensor data is received (23 degrees), open terminal #2 where server.go is, and type:
 
 ```
 $ curl -X GET http://localhost:8080/dht?temp=23
 ```
+
+Where the server side (terminal #2) would look as follows:
+
+![img](res/server-sidev1.png)
+
+And the client side (terminal #2) would look like below:
+
+![img](res/client-sidev1.png)
+
+*Note: as seen in terminal #1, the server is running on http://localhost:8080/ or http://127.0.0.1:8080/*

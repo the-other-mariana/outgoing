@@ -108,3 +108,26 @@ void loop() {
 And you will see the output in the Serial Monitor (9600):
 
 ![img](res/4.png)
+
+## Server
+
+- Install Gin Web Framework:
+
+```
+$ go get github.com/gin-gonic/gin
+```
+
+- To start the server:
+
+```
+$ export GO111MODULE=off
+$ go run server.go
+```
+
+It will run the server on http://localhost:8080/
+
+- Test sensor data is received (23 degrees):
+
+```
+$ curl -X GET http://localhost:8080/dht?temp=23
+```

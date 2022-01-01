@@ -155,3 +155,16 @@ And you will have an executable, which you can run by:
 ```
 $ ./server
 ```
+
+The command compiles all `.go` files in the current directory. It will also create all the code necessary to be able to execute the binary in computers with **the same system architecture**, even if these future computers do not have the source `.go` files or Go installed.
+
+- In this case, the development of the server was done in Linux Ubuntu 20.04 64-bit.
+
+## Compile and Install Server Executable
+
+- Open a terminal where server executable is, and type:
+
+```
+$ go install
+$ server
+```

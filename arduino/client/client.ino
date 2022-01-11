@@ -1,5 +1,6 @@
 // code that prints temperature on serial monitor
 #include <WiFi.h>
+#include <HTTPClient.h>
 #include "DHT.h"
 #define DHTPIN 2
 #define DHTTYPE DHT11
@@ -7,7 +8,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char* ssid = "INFINITUM_C8647A"; // network name
 const char* password = "F26DC8647B";
-const char* host = "127.0.0.1";
+const char* host = "192.168.1.75";
 
 void setup() {
   // put your setup code here, to run once:
@@ -18,7 +19,7 @@ void setup() {
   // connect to wifi network
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
+  Serial.print("[WIFI] Connecting to ");
   Serial.println(ssid);
 
   WiFi.begin(ssid, password);
@@ -46,35 +47,21 @@ void loop() {
     delay(3000);
   }
 
-  Serial.print("Connecting to ");
-  Serial.println(host);
+  if (WiFi.status() == WL_CONNECTED){
+    HTTPClient http;
+    int httpPort = 8080;
 
-  // WiFiClient class creates TCP connections
-  WiFiClient client;
-  const int httpPort = 8080;
-  if (!client.connect(host, httpPort)){
-    Serial.println("[FAIL] Client connection failed");
-    return;
-  }
+    http.begin(String("http://") +  host + String(":") + String(httpPort) + String("/dht?temp=") + String(temp));
+    int httpCode = http.GET();
 
-  // send request to server
-  client.print(String("GET http://127.0.0.1:8080/dht?temp=") + temp); 
-  unsigned long timeout = millis();
-  while(client.available() == 0) {
-    if (millis() - timeout > 1000){
-      Serial.println("[ERROR] Client timeout");
-      client.stop();
-      return;
+    if (httpCode > 0){
+      String payload = http.getString();
+      Serial.println(httpCode);
+      Serial.println(payload);
+    } else {
+      Serial.println("[ERROR] HTTP request code < 0");
     }
+    http.end();
   }
-
-  // read server reply and print in to serial
-  while(client.available()){
-    String line = client.readStringUntil('\r');
-    Serial.print(line);
-  }
-
-  Serial.println();
-  Serial.println("Closing connection");
-  
+  delay(10000);
 }

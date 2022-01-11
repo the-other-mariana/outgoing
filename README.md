@@ -117,6 +117,8 @@ And you will see the output in the Serial Monitor (9600):
 $ go get github.com/gin-gonic/gin
 ```
 
+### Test locally
+
 - To start the server, open terminal #1 and type:
 
 ```
@@ -124,12 +126,12 @@ $ export GO111MODULE=off
 $ go run server.go
 ```
 
-It will run the server on http://localhost:8080/
+It will run the server on http://0.0.0.0:8080/
 
 - To test sensor data is received (23 degrees), open terminal #2 on any folder, and type:
 
 ```
-$ curl -X GET http://localhost:8080/dht?temp=23
+$ curl -X GET http://0.0.0.0:8080/dht?temp=23
 ```
 
 Where the server side (terminal #2) would look as follows:
@@ -140,7 +142,34 @@ And the client side (terminal #2) would look like below:
 
 ![img](res/client-sidev1.png)
 
-*Note: as seen in terminal #1, the server is running on http://localhost:8080/ or http://127.0.0.1:8080/*
+*Note: as seen in terminal #1, the server is running on http://0.0.0.0:8080/ locally. In order to connect to a local server from another machine, we need to know the IP address of the server pc. To do that, type on a terminal:*
+
+```
+$ sudo apt install net-tools
+$ ifconfig | grep netmask
+```
+
+And the IP address will be something like: `192.168.x.xx`, which you will need to copy as the `host` variable value in the `.ino` sketch.
+
+### Usage
+
+- Test remote access:
+
+On another machine, go to `http:<192.168.x.xx>:8080/`, where your IP should go where `<192.168.x.xx>` is, and you will see the index:
+
+![img](res/server-indexv1.png)
+
+- Test ESP32 and Server communications:
+
+Once the IP address is copied in the sketch, load it to the ESP32 module. Open the serial monitor and you will see:
+
+![img](res/client-v1.png)
+
+While on the server machine:
+
+![img](res/server-v2.png)
+
+Which means the ESP32 and the Go server are communicating correctly.
 
 ## Build Server Portable Executable
 

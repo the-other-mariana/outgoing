@@ -163,7 +163,7 @@ On another machine, go to `http:<192.168.x.xx>:8080/`, where your IP should go w
 
 Once the IP address is copied in the sketch, load it to the ESP32 module. Open the serial monitor and you will see:
 
-![img](res/client-v1.png)
+![img](res/client-v2.png)
 
 While on the server machine:
 

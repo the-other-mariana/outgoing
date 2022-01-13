@@ -2,13 +2,13 @@
 
 ESP32 wifi module that takes data from a sensor and sends it to a server in Golang for multithread API handling.
 
-## Libraries
+## Arduino IDE Libraries
 
 1. Visit https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html for ESP32 library to download from the official repo (https://github.com/espressif/arduino-esp32.git) to your machine's Arduino IDE include libraries.
 
 2. Once you clone the repo into the target directory (usually, C:/Users/YOUR_USERNAME/Documents/Arduino), go to `hardware/expressif/esp32/tools` and doblue click `get.exe`. When the file finishes a few downloads, it will close itself.
 
-## Drivers
+## ESP32 USB-Serial Drivers
 
 1. Look at the ESP32 module to see which chip it has. For example, mine has written "SILABS CP2102":
 
@@ -58,7 +58,7 @@ void loop() {
 
 2. Wire the sensor to the ESP32 module using female-female dupont cables. The DHT11 sensor looks like this:
 
-![img](res/5.jpg)
+![img](res/5-2.jpg)
 
 *Note: in the sensor, the "S" marks the spot where signal (3V3) should go, and it can change depending on the DHT11 sensor you have.*
 
@@ -128,7 +128,7 @@ $ go run server.go
 
 It will run the server on http://0.0.0.0:8080/
 
-- To test sensor data is received (23 degrees), open terminal #2 on any folder, and type:
+- To test sample sensor data is received (23 degrees), open terminal #2 on any folder, and type:
 
 ```
 $ curl -X GET http://0.0.0.0:8080/dht?temp=23
@@ -142,7 +142,7 @@ And the client side (terminal #2) would look like below:
 
 ![img](res/client-sidev1.png)
 
-*Note: as seen in terminal #1, the server is running on http://0.0.0.0:8080/ locally. In order to connect to a local server from another machine, we need to know the IP address of the server pc. To do that, type on a terminal:*
+*Note: as seen in terminal #1, the server is running on http://0.0.0.0:8080/ locally. In order to connect to a local server from another machine, we need to know the IP address of the server pc and both machines need to be connected to the same wifi network. To do that, type on a terminal:*
 
 ```
 $ sudo apt install net-tools
@@ -161,22 +161,22 @@ On another machine, go to `http:<192.168.x.xx>:8080/`, where your IP should go w
 
 - Test ESP32 and Server communications:
 
-Once the IP address is copied in the sketch, load it to the ESP32 module. Open the serial monitor and you will see:
+Once the IP address is copied in the sketch, load it to the ESP32 module. Open the serial monitor (machine #1) and you will see:
 
 ![img](res/client-v2.png)
 
-While on the server machine:
+While on the server machine (machine #2):
 
 ![img](res/server-v2.png)
 
-Which means the ESP32 and the Go server are communicating correctly.
+Which means the ESP32 and the Go server are communicating correctly through the network.
 
 ## Build Server Portable Executable
 
 - Open a terminal where server.go is, and type:
 
 ```
-go build
+$ go build
 ```
 
 And you will have an executable, which you can run by:

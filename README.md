@@ -138,11 +138,11 @@ $ curl -X GET http://0.0.0.0:8080/dht?temp=23
 
 Where the server side (terminal #2) would look as follows:
 
-![img](res/server-sidev1.png)
+![img](res/server-response-local.png)
 
 And the client side (terminal #2) would look like below:
 
-![img](res/client-sidev1.png)
+![img](res/client-response-local.png)
 
 *Note: as seen in terminal #1, the server is running on http://0.0.0.0:8080/ locally. In order to connect to a local server from another machine, we need to know the IP address of the server pc and both machines need to be connected to the same wifi network. To do that, type on a terminal:*
 

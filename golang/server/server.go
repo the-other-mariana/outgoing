@@ -21,6 +21,7 @@ func main(){
 
 	router := gin.Default()
 	router.LoadHTMLGlob("web/templates/**/*")
+	router.Static("web/assets", "./web/assets")
 	fmt.Println("[SUCCESS] Starting server on :8080")
 	router.GET("/", Index)
 	router.GET("/dht", DHTSensorData)
